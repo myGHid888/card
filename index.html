@@ -1,1 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心动卡片领取</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, sans-serif;
+            background: #0d0d16; color: #fff;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            min-height: 100vh;
+        }
+        .box { text-align: center; padding: 20px; max-width: 400px; width: 90%; }
+        .code-input {
+            padding: 12px; font-size: 16px; border: 1px solid #a855f7;
+            border-radius: 25px; background: rgba(255,255,255,0.1);
+            color: #fff; text-align: center; width: 80%; margin-bottom: 20px; outline: none;
+        }
+        .btn {
+            padding: 10px 30px; font-size: 16px; background: #a855f7;
+            border: none; border-radius: 25px; color: white; cursor: pointer;
+            box-shadow: 0 4px 15px rgba(168, 85, 247, 0.4);
+        }
+        .hidden { display: none !important; }
+        .display-img {
+            max-width: 100%; max-height: 65vh; border-radius: 12px;
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.6);
+        }
+        .lyrics { margin-top: 20px; font-size: 16px; line-height: 1.8; color: #cbd5e1; }
+    </style>
+</head>
+<body>
 
+    <div class="box" id="step1">
+        <h3 style="margin-bottom: 20px; font-weight: 400;">输入专属暗号领取对象</h3>
+        <input type="text" id="code" class="code-input" placeholder="请输入暗号...">
+        <br>
+        <button class="btn" onclick="openCard()">确定</button>
+    </div>
+
+    <div class="box hidden" id="step2">
+        < img src="bg.png" class="display-img">
+        <div class="lyrics">
+            🐹：每分每秒都想你<br>
+            🦌：请在黑暗中点亮我...
+        </div>
+        <audio id="music" src="music.mp3" loop></audio>
+    </div>
+
+    <script>
+        function openCard() {
+            const inputVal = document.getElementById('code').value.trim();
+            if (inputVal === '520') {
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('step2').classList.remove('hidden');
+                const audio = document.getElementById('music');
+                audio.play().catch(() => {
+                    document.body.addEventListener('click', () => { audio.play(); }, { once: true });
+                });
+            } else {
+                alert('暗号不对哦，再试一次！');
+            }
+        }
+    </script>
+</body>
+</html>
